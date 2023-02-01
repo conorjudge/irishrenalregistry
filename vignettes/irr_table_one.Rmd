@@ -1,0 +1,40 @@
+---
+title: "irr_table_one"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{irr_table_one}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Welcome to the Irish Renal Registry R Package
+Let's start exploring. The first thing to do is call the irishrenalregistry R library.
+
+```{r setup, warning=FALSE, message=FALSE}
+library(irishrenalregistry)
+```
+
+# Create your first Irish Renal Registry Analysis
+"Table one's" contain baseline values of collected variables (rows) across an important predictor variable. For this example, we'll look at the baseline collected variables across different levels of pollution at home using the is_table_one function.
+
+The first argument (interstroke_data) is a dataframe containing the required variables. 
+
+The second argument (model) is the standard R formula. The left hand side of the ~ symbol contains the predictor (placed on the columns in the table) and the right hand side contains the baseline variables (placed on the rows of the table).
+
+```{r table_one, message=FALSE, warning=FALSE}
+
+is_table_one(interstroke_data=interstroke_pollution, 
+             model = polluteh~eage+bmi+sysbp)
+
+```
+
+# Output to Microsoft Word
+
+In R Studio click, Knit to Word.

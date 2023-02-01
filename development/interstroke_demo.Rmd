@@ -1,0 +1,56 @@
+---
+title: "Interstroke BMI"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(interstroke)
+```
+
+# Figure 1 - Proportion plot
+
+
+```{r proportion_example1, echo = FALSE, warning= FALSE, message = FALSE}
+is_figure_proportion(interstroke_bmi, regionnn7, bmi_3_level)
+```
+
+# Figure 2 - Model plot
+
+```{r model_example1, echo = FALSE, warning= FALSE, message = FALSE}
+is_figure_models(interstroke_data=interstroke_bmi, 
+                 models=c(case_num~bmi_quintiles+eage+esex+regionnn7+strata(caseid),
+                          case_num~bmi_quintiles+eage+esex+smoking+regionnn7+whr+strata(caseid),
+                          # case_num~bmi_quintiles+eage+esex+regionnn7+whr+strata(caseid),
+                          case_num~bmi_quintiles+eage+esex+smoking+sysbp+subdm+phys+alcohfreqcat+strata(caseid)),
+                 regression_type = "unconditional")
+
+```
+
+# is_logistic_regression demo
+
+```{r is_log_reg_demo, echo = FALSE, warning= FALSE, message = FALSE}
+demo_df <- is_logistic_regression(interstroke_data=interstroke_bmi, 
+                 models=c(case_num~bmi_quintiles+eage+esex+regionnn7+strata(caseid),
+                          # case_num~bmi_quintiles+eage+esex+smoking+regionnn7+whr+strata(caseid),
+                          case_num~bmi_quintiles+eage+esex+regionnn7+whr+strata(caseid),
+                          case_num~bmi_quintiles+eage+esex+smoking+sysbp+subdm+phys+alcohfreqcat+strata(caseid)),
+                 regression_type = "conditional")
+```
+
+# forest demo
+
+```{r forest_demo, echo = FALSE, warning= FALSE, message = FALSE}
+forest_df <- is_figure_stratified_subgroups(interstroke_data = interstroke_pollution,
+                                        subgroups = c("esex","smoking","antihypertpre","cardiacrfcat", "education"),
+                                        model = case_num~sysbp,
+                                        regression_type = "unconditional")
+```
+
+```{r forest_demo2, echo = FALSE, warning= FALSE, message = FALSE}
+is_table_two(interstroke_data=interstroke_pollution,
+             models=c(case_num~cookplace+strata(caseid),case_num~cookplace+eage+nevfcur+aheiscore+whrs2tert+hhincome+cardiacrfcat+sysbp+education+strata(caseid),
+                      case_num~cookplace+eage+nevfcur+aheiscore+whrs2tert+hhincome+cardiacrfcat+sysbp+education+country+incomectry+strata(caseid)),
+             regression_type="conditional")
+
+```

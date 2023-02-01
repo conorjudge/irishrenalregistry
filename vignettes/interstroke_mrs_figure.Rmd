@@ -1,0 +1,52 @@
+---
+title: "interstroke_mrs_figure"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{interstroke_mrs_figure}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Welcome to the Interstroke R Package
+Let's start exploring. The first thing to do is call the interstroke library.
+
+```{r setup,warning=FALSE, message=FALSE}
+library(interstroke)
+```
+
+# Create your Modified Rankin Scale (MRS) figure
+The Modified Rankin Scale figure creates a horizontal stacked bar plot illustrating the distribution of modified rankin scale across a variable.
+
+The function requires at least three arguments. 
+
+The first argument (interstroke_data) is a dataframe containing the required variables. 
+
+The Second argument (x_axis_variable) is a categorical variable that divides the population into groups of the variables level.
+
+Optional arguments may be provided for the following:
+
+dropped_prop_levels: To exclude named levels of the predictor variable from the plot, assign a collection of the variables labels to exclude to "dropped_prop_levels". e.g.  dropped_prop_levels = c("BMI <25").
+
+na_rm: To drop NA's from the analysis, use the na_rm logical argument, default is set to FALSE.
+
+text_size: Assign a text size. Default is text_size = 3.7.
+
+Example 1: We'll look at the MRS distribution by the csdiffsl variable (difficulty getting to sleep) using the is_figure_mrs function.
+
+```{r is_figure_mrs_csdiffsl, message = FALSE, fig.dim = c(10, 5.5), warning = FALSE}
+
+is_figure_mrs(interstroke_sleep %>% drop_na(csdiffsl) %>% filter(case== "Case"),csdiffsl)
+
+```
+
+
+# Output to Microsoft Word
+
+In R Studio click, Knit to Word.

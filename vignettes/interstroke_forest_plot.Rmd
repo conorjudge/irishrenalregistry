@@ -1,0 +1,105 @@
+---
+title: "interstroke_forest_plot"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{interstroke_forest_plot}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Welcome to the Interstroke R Package
+Let's start exploring. The first thing to do is call the interstroke library.
+
+```{r setup,warning=FALSE, message=FALSE}
+library(interstroke)
+```
+
+# Create standard deviation data from continous variable
+
+Forest plots can compare the odds ratio for 1 standard deviation increase. 
+
+To create a standard deviation variable, create a new column in your interstroke_data dataframe similar to the following:
+
+```{r sd_data}
+
+## Using whr, create a whr_z by subtracting the mean from each value and dividing by the standard deviation
+interstroke_bmi$whr_z <- (interstroke_bmi$whr - mean(interstroke_bmi$whr, na.rm = TRUE)) / 
+  sd(interstroke_bmi$whr, na.rm = TRUE)
+
+```
+
+
+# Create your forest plot
+is_figure_stratified_subgroups creates an odds ratio forest plot comparing estimates and CI's between subgroups. Estimates and CI's are plot against a log odds x-axis. The y-axis is split into subgroups. 
+
+The function requires three arguments. 
+
+The first argument (interstroke_data) is a dataframe containing the required variables. 
+
+The Second argument (subgroups) is a collection of categorical variables to display along the y-axis. Format = c("subgroup_level1", "subgroup_level2"...)
+
+The third argument (model) contains the model to be fitted. 
+
+The fourth argument (regression_type) accepts either "unconditional" or "conditional". When using "conditional", model formulas must end in +strata(caseid). 
+
+Optional arguments may be provided for the following:
+
+include_overall: Overall analysis is included by default and can be disabled by supplying the "include_overall = FALSE" argument. 
+
+p_sig: By default, all p values under 1 will be displayed. Assign a p_sig value of your choosing to only display p values significant to this level. 
+
+limits: Set plot axis limits in the format limits = c(0,10)
+
+breaks: Manually assign axis tick breaks. format: breaks = seq(0, 100, by = 20)
+
+long_title: Default as TRUE, will print a descriptive title. Set to FALSE to display just the predictor as the title. 
+
+text_size: Assign a text size. Default is text_size = 4.
+
+Example 1: Unconditional 
+
+```{r forest_data, message = FALSE, fig.dim = c(10, 8), warning = FALSE, results='hide'}
+
+is_figure_stratified_subgroups(interstroke_data = interstroke_pollution,
+                                        subgroups = c("esex","smoking","antihypertpre","cardiacrfcat"),
+                                        model = case_num~sysbp,
+                                        regression_type = "unconditional")
+
+```
+
+Example 2: No overall and predictor as title. 
+
+```{r forest_data2, message = FALSE, fig.dim = c(10, 8), warning = FALSE, results='hide'}
+
+is_figure_stratified_subgroups(interstroke_data = interstroke_bmi,
+                                           subgroups = c("esex","smoking","alcohfreqcat","antihypertpre","cardiacrfcat"),
+                                           model = case_num~whr_z,
+                                           regression_type = "unconditional",
+                                           include_overall = FALSE,
+                                           long_title = FALSE)
+
+```
+
+Example 3: Conditional variant of example 2. Change regression type to "conditional" and append strata(caseid) to the end of the model.
+
+```{r forest_data3, message = FALSE, fig.dim = c(10, 8), warning = FALSE, results='hide'}
+
+is_figure_stratified_subgroups(interstroke_data = interstroke_bmi,
+                                           subgroups = c("esex","smoking","alcohfreqcat","antihypertpre","cardiacrfcat"),
+                                           model = case_num~whr_z+strata(caseid),
+                                           regression_type = "conditional",
+                                           include_overall = FALSE,
+                                           long_title = FALSE)
+
+```
+
+# Output to Microsoft Word
+
+In R Studio click, Knit to Word.

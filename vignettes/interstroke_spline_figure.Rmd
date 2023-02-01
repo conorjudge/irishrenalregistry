@@ -1,0 +1,45 @@
+---
+title: "interstroke_spline_figure"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{interstroke_spline_figure}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Welcome to the Interstroke R Package
+Let's start exploring. The first thing to do is call the interstroke library.
+
+```{r setup,warning=FALSE, message=FALSE}
+library(interstroke)
+```
+
+# Create your spline figure
+The spline figure function....
+
+The function requires 3 arguments. 
+
+The first argument (interstroke_data) is a dataframe containing the required variables. 
+
+The second argument (formula)...
+
+The third agrument (predictor)...
+
+Example 1: 
+
+```{r spline_1, message = FALSE, fig.dim = c(7.25, 4.5), warning = FALSE}
+
+# is_spline(interstroke_data, formula, predictor, env = rlang::caller_env())
+
+```
+
+# Output to Microsoft Word
+
+In R Studio click, Knit to Word.

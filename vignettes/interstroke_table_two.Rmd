@@ -1,0 +1,60 @@
+---
+title: "interstroke_table_two"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{interstroke_table_two}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Welcome to the Interstroke R Package
+Let's start exploring. The first thing to do is call the interstroke library.
+
+```{r setup, warning=FALSE, message=FALSE}
+library(interstroke)
+```
+
+# Create your Interstroke Table Two
+
+The first argument (interstroke_data) is a dataframe containing the required variables. 
+
+The second argument (models) contains a list of model formulas to be compared. 
+
+The third agrumgent (regression_type) accepts either "unconditional" or "conditional". When using "conditional", model formulas must end in +strata(caseid). 
+
+Optional arguments may be provided for the following:
+
+table_title: Override the default title with a custom title in the format: table_title = "Custom title".
+
+Example 1: Unconditional association between cookplace and stroke.
+
+```{r table_two_example1, message=FALSE}
+
+is_table_two(interstroke_data=interstroke_pollution,
+             models=c(case_num~cookplace,case_num~cookplace+eage+nevfcur+aheiscore+whrs2tert+hhincome+cardiacrfcat+sysbp+education,
+                      case_num~cookplace+eage+nevfcur+aheiscore+whrs2tert+hhincome+cardiacrfcat+sysbp+education+country+incomectry),
+             regression_type="unconditional")
+
+```
+
+Example 2: Conditional association between smoking and stroke.
+
+```{r table_two_example2, message=FALSE}
+
+is_table_two(interstroke_data=interstroke_bmi,
+             models=c(case_num~smoking+strata(caseid),
+                      case_num~smoking+eage+nevfcur+aheiscore+whrs2tert+hhincome+cardiacrfcat+sysbp+strata(caseid),
+                      case_num~smoking+eage+nevfcur+aheiscore+whrs2tert+hhincome+cardiacrfcat+sysbp+incomectry+strata(caseid)),
+             regression_type="conditional")
+
+```
+# Output to Microsoft Word
+
+In R Studio click, Knit to Word.

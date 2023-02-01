@@ -1,0 +1,68 @@
+---
+title: "interstroke_subtypes_figure"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{interstroke_subtypes_figure}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Welcome to the Interstroke R Package
+Let's start exploring. The first thing to do is call the interstroke library.
+
+```{r setup,warning=FALSE, message=FALSE}
+library(interstroke)
+```
+
+# Create your stroke type subtype pointrange figure
+The subtype pointrange figure creates a plot comparing estimates and CI's of a model across stroke types (All stroke, Ischaemic and ICH). Estimates and CI's are plot against a log y-axis. The x-axis groups the models based on stroketype. 
+
+The function requires three arguments. 
+
+The first argument (interstroke_data) is a dataframe containing the required variables. 
+
+The second argument (model) is a model formula to be compared across stroke types.
+
+The third argument (regression_type) accepts either "unconditional" or "conditional". When using "conditional", model formulas must end in +strata(caseid). 
+
+Example 1: We'll look at the quintiles of bmi model estimates across stroke types using unconditional regression.
+
+```{r subtype_bmi_1, message = FALSE, fig.dim = c(8.5, 5), warning = FALSE}
+
+is_figure_subtypes(interstroke_data=interstroke_bmi, 
+                   model=case_num ~ bmi_quintiles,
+                   regression_type = "unconditional")
+
+```
+
+Example 2: We'll look at the quintiles of bmi model estimates across stroke types using conditional regression (add strata(caseid) to the end of model).
+
+```{r subtype_bmi_2, message = FALSE, fig.dim = c(8.5, 5), warning = FALSE}
+
+is_figure_subtypes(interstroke_data=interstroke_bmi, 
+                   model=case_num ~ bmi_quintiles + strata(caseid),
+                   regression_type = "conditional")
+
+```
+
+Example 3: Reference groups for analysis should appear first and will follow the levels defined in the DATASET script. 
+
+```{r subtype_bmi_3, message = FALSE, fig.dim = c(8.5, 5), warning = FALSE}
+
+is_figure_subtypes(interstroke_data=interstroke_bmi,
+                   model=case_num ~ smoking + strata(caseid),
+                   regression_type = "conditional")
+
+```
+
+# Output to Microsoft Word
+
+In R Studio click, Knit to Word.
+

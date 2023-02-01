@@ -1,0 +1,36 @@
+Package: irishrenalregistry
+Type: Package
+Title: A collection of tools to analyze Irish Renal Data
+Version: 0.1.0
+Authors@R: c(
+    person("Judge", "Conor", email = "conorjudge@gmail.com",role = c("aut", "cre")),
+    person("Chevarria", "Julio", email = "julio.chevarria@hse.ie",role = c("aut")),
+    person("Scott", "Jennifer", email = "j2scott50@gmail.com",role = c("aut")))
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+Imports:
+    survival (>= 3.1.0),
+    arsenal (>= 3.5.0),
+    cowplot,
+    rlang,
+    stringr,
+    ggplot2,
+    flextable,
+    scales
+RoxygenNote: 7.1.2
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+Depends: 
+    R (>= 2.10),
+    dplyr,
+    magrittr,
+    rms,
+    survival,
+    tidyr,
+    forcats
+VignetteBuilder: knitr

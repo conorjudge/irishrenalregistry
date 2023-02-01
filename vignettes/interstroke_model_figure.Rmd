@@ -1,0 +1,66 @@
+---
+title: "interstroke_model_figure"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{interstroke_model_figure}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Welcome to the Interstroke R Package
+Let's start exploring. The first thing to do is call the interstroke library.
+
+```{r setup,warning=FALSE, message=FALSE}
+library(interstroke)
+```
+
+# Create your model pointrange figure
+The model pointrange figure creates a plot comparing estimates and CI's of multiple models. Estimates and CI's are plot against a log y-axis. The x-axis groups the models based on the source data grouping (quartile, quintile, etc). 
+
+The function requires three arguments. 
+
+The first argument (interstroke_data) is a dataframe containing the required variables. 
+
+The second argument (models) contains a list of model formulas to be compared. 
+
+The third agrumgent (regression_type) accepts either "unconditional" or "conditional". When using "conditional", model formulas must end in +strata(caseid). 
+
+Example 1: We'll look at the quintiles of bmi unconditional model estimates. Comparing a base fit with an adjusted for age and sex fit.
+
+```{r model_bmi_1, message = FALSE, fig.dim = c(8.5, 5), warning = FALSE}
+
+is_figure_models(interstroke_data=interstroke_bmi, 
+                 models=c(case_num~bmi_quintiles,case_num~bmi_quintiles+eage+esex),
+                 regression_type = "unconditional")
+
+```
+
+Example 2: Conditional regression can be carried out by changing the regression_type parameter to "conditional". This requires the model to end in strata(caseid). 
+
+```{r model_bmi_2, message = FALSE, fig.dim = c(8.5, 5), warning = FALSE}
+
+is_figure_models(interstroke_data=interstroke_bmi, 
+                 models=c(case_num~bmi_quintiles+strata(caseid),case_num~bmi_quintiles+eage+esex+strata(caseid)),
+                 regression_type = "conditional")
+
+```
+Example 3: Reference groups for analysis should appear first and will follow the levels defined in the DATASET script. 
+
+```{r model_bmi_3, message = FALSE, fig.dim = c(8.5, 5), warning = FALSE}
+
+is_figure_models(interstroke_data=interstroke_bmi,
+                 models=c(case_num~smoking+strata(caseid),case_num~smoking+eage+esex+whr+strata(caseid)),
+                 regression_type = "conditional")
+
+```
+
+# Output to Microsoft Word
+
+In R Studio click, Knit to Word.

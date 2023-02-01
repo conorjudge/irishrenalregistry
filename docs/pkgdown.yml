@@ -1,0 +1,15 @@
+pandoc: 2.19.2
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  interstroke_forest_plot: interstroke_forest_plot.html
+  interstroke_model_figure: interstroke_model_figure.html
+  interstroke_mrs_figure: interstroke_mrs_figure.html
+  interstroke_proportion_figure: interstroke_proportion_figure.html
+  interstroke_spline_figure: interstroke_spline_figure.html
+  interstroke_subtype_figure: interstroke_subtype_figure.html
+  interstroke_table_one: interstroke_table_one.html
+  interstroke_table_two: interstroke_table_two.html
+  irr_table_one: irr_table_one.html
+last_built: 2023-02-01T23:13Z
+
