@@ -5,7 +5,9 @@ Version: 0.1.0
 Authors@R: c(
     person("Judge", "Conor", email = "conorjudge@gmail.com",role = c("aut", "cre")),
     person("Chevarria", "Julio", email = "julio.chevarria@hse.ie",role = c("aut")),
-    person("Scott", "Jennifer", email = "j2scott50@gmail.com",role = c("aut")))
+    person("Keane", "David", email = "keanedd@universityofgalway.ie",role = c("aut")),
+    person("Scott", "Jennifer", email = "j2scott50@gmail.com",role = c("aut")),
+    person("O'Keefe", "Hannah", email = "hannah.okeeffe@gmail.com ",role = c("aut")))
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: What license is it under?
